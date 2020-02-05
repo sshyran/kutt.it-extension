@@ -172,10 +172,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Get API Key / Password from localstorage
-    const { key, pwd } = await browser.storage.local.get(['key', 'pwd']);
+    const {
+        key,
+        pwd,
+        userOptions: { devMode },
+    } = await browser.storage.local.get(['key', 'pwd', 'userOptions']);
 
     API_KEY = key;
     password = pwd;
+
+    // show warning message
+    if (devMode) {
+        toggleContentVisibility('#warning');
+    }
 
     if (validUrl && API_KEY !== '' && API_KEY !== undefined) {
         /**
